@@ -43,3 +43,4 @@ double Square(const double length, const double width)
 double Perimeter(const double length, const double width)
 {
     return 2 * (length + width);
+}
