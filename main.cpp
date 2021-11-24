@@ -3,44 +3,85 @@
 using namespace std;
 
 /**
- * \brief Вычисляет площадь прямоугольника.
- * \param length Длина стороны прямоугольника.
- * \param width Ширина стороны прямоугольника.
- * \return Площадь прямоугольника.
+ * \brief Вычисляет сумму чисел.
+ * \param value1 число введённое пользователем.
+ * \param value2 число введённое пользователем.
+ * \return сумму чисел.
  */
-double Square(const double length, const double width);
+double sum(double value1, double value2);
 
 /**
- * \brief Вычисляет периметр прямоугольника.
- * \param length Длина стороны прямоугольника.
- * \param width Ширина стороны прямоугольника.
- * \return Периметр прямоугольника.
+ * \brief Вычисляет разность чисел.
+ * \param value1 число введённое пользователем.
+ * \param value2 число введённое пользователем.
+ * \return разность чисел.
  */
-double Perimeter(const double length, const double width);
+double difference(double value1, double value2);
 
 /**
- * \brief Точка входа в программу.
- * \return Код ошибки (0 - успех).
+ * \brief Вычисляет сред арифетическое чисел.
+ * \param value1 число введённое пользователем.
+ * \param value2 число введённое пользователем.
+ * \return сред арифетическое чисел.
  */
+double quotient(double value1, double value2);
+
+/**
+* \brief выбор заполнения массива
+*/
+enum path
+{
+	first = 1,
+	second = 2,
+	trird = 3
+};
+
+
+
 int main()
 {
-    cout << "Введите длины сторон прямоугольника\n";
-    double a,b;
-    cin >> a >> b;
+	setlocale(LC_ALL, "Russian");
 
-    const auto square = Square(a, b);
-    cout << "Площадь квадрата равна " << square << "\n";
-
-    const auto perimeter = Perimeter(a, b);
-    cout << "Периметр прямоугольника " << perimeter << endl;
+	int value1, value2, choice;
+	cout << "Введите а и b ";
+	cin >> value1 >> value2;
+	cout << "Выберите какую операцию вы хотите выполнить:\n1 - сложение\n2 - разность\n3 - срднее арифетическое\n";
+	cin >> choice;
+	const auto filling = static_cast<path>(choice);
+	switch (filling) {
+	case path::first:
+	{
+		double rezult = sum(value1, value2);
+		cout<<rezult;
+		break;
+	}
+	case path::second:
+	{
+		double rezult = difference( value1,  value2);
+		cout<<rezult;
+		break;
+	}
+	case path::trird:{
+		double rezult = quotient(value1, value2);
+		cout<<rezult;
+		break;
+	}
+	default:
+		cout << "Некоректный ввод.";
+		break;
+	}
 }
 
-double Square(const double length, const double width)
+double sum(double value1, double value2)
 {
-    return length * width;
+	return value1+value2;
+	
 }
 
-double Perimeter(const double length, const double width)
-{
-    return 2 * (length + width);
+double difference(double value1, double value2){
+	return value1-value2;
+}
+
+double quotient(double value1, double value2){
+	return (value1+value2)/2;
 }
