@@ -1,46 +1,52 @@
+#include <cmath>
 #include <iostream>
-
+#define _USE_MATH_DEFINES
 using namespace std;
 
 /**
- * \brief Вычисляет площадь прямоугольника.
- * \param length Длина стороны прямоугольника.
- * \param width Ширина стороны прямоугольника.
- * \return Площадь прямоугольника.
- */
-double Square(const double length, const double width);
+* \brief Это функция выполняет вычисление функции при x < 1.2
+* \param a параметр а
+* \param x параметр х
+* \return значение функции
+*/
+double getY1(const double a, double x);
 
 /**
- * \brief Вычисляет периметр прямоугольника.
- * \param length Длина стороны прямоугольника.
- * \param width Ширина стороны прямоугольника.
- * \return Периметр прямоугольника.
- */
-double Perimeter(const double length, const double width);
+* \brief Это функция выполняет вычисление функции при x >= 1.2
+* \param a параметр а
+* \param x параметр х
+* \return значение функции
+*/
+double getY2(const double a, double x);
 
 /**
- * \brief Точка входа в программу.
- * \return Код ошибки (0 - успех).
- */
+* \brief Точка входа в программу
+* \return 0 в случае успеха
+*/
 int main()
 {
-    cout << "Введите длины сторон прямоугольника\n";
-    double a,b;
-    cin >> a >> b;
-
-    const auto square = Square(a, b);
-    cout << "Площадь квадрата равна " << square << "\n";
-
-    const auto perimeter = Perimeter(a, b);
-    cout << "Периметр прямоугольника " << perimeter << endl;
-}
-
-double Square(const double length, const double width)
+double x;
+double y;
+const double a = 2;
+cout << "Введите значение х ";
+cin >> x;
+if (x > a)
 {
-    return length * width;
+y = getY1( a, x);
+cout << "y = " << y << "\n";
 }
-
-double Perimeter(const double length, const double width)
+else
 {
-    return 2 * (length + width);
+y = getY2( a, x);
+cout << "y = "<< y << "\n";
+}
+return 0;
+}
+double getY1(const double a, double x)
+{
+return tan(x)+M_PI/3;
+}
+double getY2(const double a, double x)
+{
+return sin(x)*a;
 }
