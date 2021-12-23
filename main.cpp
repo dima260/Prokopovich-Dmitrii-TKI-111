@@ -1,46 +1,35 @@
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
 /**
- * \brief Вычисляет площадь прямоугольника.
- * \param length Длина стороны прямоугольника.
- * \param width Ширина стороны прямоугольника.
- * \return Площадь прямоугольника.
- */
-double Square(const double length, const double width);
+* \brief Функция для расчета y
+* \param x Аргумент x
+* \return Значение y
+*/
+double GetY(const double x);
 
 /**
- * \brief Вычисляет периметр прямоугольника.
- * \param length Длина стороны прямоугольника.
- * \param width Ширина стороны прямоугольника.
- * \return Периметр прямоугольника.
- */
-double Perimeter(const double length, const double width);
-
-/**
- * \brief Точка входа в программу.
- * \return Код ошибки (0 - успех).
- */
+* \brief Ввод значения х в программу
+* \return Конечное значение
+*/
 int main()
 {
-    cout << "Введите длины сторон прямоугольника\n";
-    double a,b;
-    cin >> a >> b;
+setlocale(LC_ALL, "Russian");
 
-    const auto square = Square(a, b);
-    cout << "Площадь квадрата равна " << square << "\n";
+const double step = 0.1, limit = 2.0;
+double x = 0;
 
-    const auto perimeter = Perimeter(a, b);
-    cout << "Периметр прямоугольника " << perimeter << endl;
+
+while (x <= limit)
+{
+cout << " переменная x: " << x << " |" << " переменная функция: " << GetY(x) << endl;
+x += step;
+}
 }
 
-double Square(const double length, const double width)
+double GetY(const double x)
 {
-    return length * width;
-}
-
-double Perimeter(const double length, const double width)
-{
-    return 2 * (length + width);
+return x - (cos(x)-exp(-(pow(x,2)/2)+x-1));
 }
