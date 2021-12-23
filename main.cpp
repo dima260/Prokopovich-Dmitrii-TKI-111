@@ -1,32 +1,35 @@
-#include <cmath>
 #include <iostream>
-#define _USE_MATH_DEFINES
+#include <cmath>
 
 using namespace std;
 
 /**
-* \brief Математическая функция, рассчитывающая значение функции y
-* \param const double x - константа, имеющая тип данных с плавающей точкой двойной точности
-* \return Возвращает значение функции y
-**/
-
-double gety(const double x);
+* \brief Функция для расчета y
+* \param x Аргумент x
+* \return Значение y
+*/
+double GetY(const double x);
 
 /**
-* \brief Точка входа в программу.
-* \return Возвращает 0 в случае успешного выполнения.
+* \brief Ввод значения х в программу
+* \return Конечное значение
 */
 int main()
 {
-    const double x = 2;
-    const auto y = gety(x);
+setlocale(LC_ALL, "Russian");
+
+const double step = 0.1, limit = 2.0;
+double x = 0;
+
+
+while (x <= limit)
+{
+cout << " переменная x: " << x << " |" << " переменная функция: " << GetY(x) << endl;
+x += step;
+}
 }
 
-double gety(const double x)
+double GetY(const double x)
 {
-    for (double x = 1; x <= 2; x = x + 0.1)
-    {
-        cout << "y = " << cos(x)-pow(M_E,(-x*x)/2)+x-1 << endl;
-    }
-    return 1;
+return x - (cos(x)-exp(-(pow(x,2)/2)+x-1));
 }
