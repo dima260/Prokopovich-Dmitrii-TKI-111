@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <ctime>
+#include <random>
 
 using namespace std;
 
@@ -8,10 +9,8 @@ using namespace std;
 * \brief Заполнение массива случайными числами
 * \param array Массив
 * \param size Размер массива
-* \param LOW_BOUND Минимально возможное число
-* \param UP_BOUND Максимально возможное число
 **/
-void RandomDigits(int* array, const size_t size, const int LOW_BOUND, const int UP_BOUND);
+void RandomDigits(int* array, const size_t size);
 
 /**
 * \brief Ввод массива с клавиатуры
@@ -46,6 +45,7 @@ void NumberGreaterNext(int* array, const size_t size);
 * \brief Метод,Найти номер последней пары соседних элементов с разными знаками.
 * \param array Массив
 * \param size Размер массива
+* \param input введенное число 
 **/
 void MultiplyАllmultiplesThirdElement(int* array, const size_t size, double input);
 
@@ -67,14 +67,12 @@ int main() {
 setlocale(LC_ALL, "ru");
 srand(time(NULL));
 
-const int LOW_BOUND = -40, UP_BOUND = 40;
-
 cout << "Введите количество элементов массива: ";
 int* array;
-int size;
+size_t size;
 cin >> size;
 
-array = new int[size];
+array = new int[size]; //инициализировал в 74 строке
 cout << "1 - Сгенерировать массив\n2 - Заполнить массив вручную\n";
 int choice;
 cin >> choice;
@@ -83,7 +81,7 @@ const auto filling = static_cast<Filling>(choice);
 switch (filling)
 {
 case Filling::RANDOM:
-RandomDigits(array, size, LOW_BOUND, UP_BOUND);
+RandomDigits(array, size);
 Print(array, size);
 break;
 case Filling::USER:
@@ -114,9 +112,15 @@ array = nullptr;
 return 0;
 }
 
-void RandomDigits(int* array, const size_t size, const int LOW_BOUND, const int UP_BOUND) {
-for (size_t i = 0; i < size; i++) {
-array[i] = rand() % (2 * UP_BOUND + 1) + LOW_BOUND;
+void RandomDigits(int* array, const size_t size) {
+random_device rd;
+    mt19937 gen(rd());
+
+    uniform_int_distribution<int> uniformIntDistribution(-50, 50);
+    int* a = new int [size];
+    for (int i = 0; i < size; i++) 
+    {
+      a[i] = uniformIntDistribution(gen);
 }
 }
 
@@ -138,7 +142,7 @@ cout << array[size - 1] << "}\n\n";
 int GetSum(int* array, const size_t size) {
 int sum = 0;
 for (size_t i = 0; i < size; i++) {
-if ((array[i]>=0)&&(array[i]>9)&&(array[i]<100)) {
+if ((array[i] >= 0) && (array[i] > 9) && (array[i] < 100)) { //первая скобка проверяет что число больше нуля вторая и третья скобки проверяют что число имеет два числа внутри
 sum += array[i];
 }
 }
