@@ -10,14 +10,14 @@ using namespace std;
 * \param array Массив
 * \param size Размер массива
 **/
-void RandomDigits(int* array, const size_t size);
+int* RandomDigits( const size_t size);
 
 /**
 * \brief Ввод массива с клавиатуры
 * \param array Массив
 * \param size Размер массива
 **/
-void UserInput(int* array, const size_t size);
+int* UserInput( const size_t size);
 
 /**
 * \brief Вывод массива
@@ -39,7 +39,7 @@ int GetSum(int* array, const size_t size);
 * \param array Массив
 * \param size Размер массива
 **/
-void NumberGreaterNext(int* array, const size_t size);
+void multiplication_by_last_number(int* array, const size_t size);
 
 /**
 * \brief Метод,Найти номер последней пары соседних элементов с разными знаками.
@@ -47,7 +47,7 @@ void NumberGreaterNext(int* array, const size_t size);
 * \param size Размер массива
 * \param input введенное число 
 **/
-void MultiplyАllmultiplesThirdElement(int* array, const size_t size, double input);
+void search_pair(int* array, const size_t size,int input);
 
 /**
 * \brief Выбор заполнеия массива
@@ -68,12 +68,14 @@ setlocale(LC_ALL, "ru");
 srand(time(NULL));
 
 cout << "Введите количество элементов массива: ";
-int* array;
+
 size_t size;
+int* Array = nullptr;
 cin >> size;
 
-array = new int[size]; //инициализировал в 74 строке
-cout << "1 - Сгенерировать массив\n2 - Заполнить массив вручную\n";
+
+
+cout <<static_cast<int>(Filling::RANDOM)<< "- Сгенерировать массив\n" <<static_cast<int>(Filling::USER)<<" - Заполнить массив вручную\n";
 int choice;
 cin >> choice;
 
@@ -81,39 +83,39 @@ const auto filling = static_cast<Filling>(choice);
 switch (filling)
 {
 case Filling::RANDOM:
-RandomDigits(array, size);
-Print(array, size);
+Array = RandomDigits(size);
+Print(Array, size);
 break;
 case Filling::USER:
-UserInput(array, size);
-Print(array, size);
+Array = UserInput(size);
+Print(Array, size);
 break;
 default:
 cout << "Ошибка! Не выбран ни один из вариантов";
 }
 
-cout << "Найти сумму положительных элементов, значения которых состоят из двух цифр." << GetSum(array, size) << "\n\n";
+cout << "Найти сумму положительных элементов, значения которых состоят из двух цифр." << GetSum(Array, size) << "\n\n";
 
 cout << "Умножить все четные положительные элементы на последний элемент массива.:\n";
 
-NumberGreaterNext(array, size);
+multiplication_by_last_number(Array, size);
 
 cout << "Найти номер первой пары соседних элементов с разными знаками, сумма которых меньше заданного числа.:\n";
 double input;
 cin >> input;
-MultiplyАllmultiplesThirdElement(array, size, input);
+search_pair(Array, size, input);
 
-if (array != nullptr)
+if (Array != nullptr)
 {
-delete[] array;
-array = nullptr;
+delete[] Array;
+Array = nullptr;
 };
 
 return 0;
 }
 
-void RandomDigits(int* array, const size_t size) {
-random_device rd;
+int* RandomDigits(const size_t size) {
+		random_device rd;
     mt19937 gen(rd());
 
     uniform_int_distribution<int> uniformIntDistribution(-50, 50);
@@ -122,13 +124,16 @@ random_device rd;
     {
       a[i] = uniformIntDistribution(gen);
 }
+	return a;
 }
 
-void UserInput(int* array, const size_t size) {
-for (size_t i = 0; i < size; i++) {
-cout << "arr[" << i << "] = ";
-cin >> array[i];
-}
+int* UserInput(const size_t size) {
+	int* a = new int [size];
+	for (size_t i = 0; i < size; i++) {
+		cout << "arr[" << i << "] = ";
+		cin >> a[i];
+	}
+	return a;
 }
 
 void Print(int* array, const size_t size) {
@@ -149,25 +154,25 @@ sum += array[i];
 return sum;
 }
 
-void NumberGreaterNext(int* array, const size_t size) {
+void multiplication_by_last_number(int* array, const size_t size) {
 for (size_t i = 0; i < size; i++) {
-  if ((array[i]%2==0)&&(array[i]>=0)){
-    array[i]=array[i]*array[size];
+  if ( ( array[i] % 2 == 0 ) && ( array[i]>=0 ) ){
+    array[i]=array[i]*array[size-1];
   }
 }
-for (size_t i = 0; i < size; i++){cout << array[i]<<endl;}
+Print(array, size);
 }
 
 
-void MultiplyАllmultiplesThirdElement(int* array, const size_t size,double input) {
-bool k = false;
+void search_pair(int* array, const size_t size,int input) {
+bool flag = false;
 for (size_t i = 1; i < size; i++) {
 if ((array[i] * array[i - 1] < 0)&&(array[i] + array[i - 1]<input)) {
 cout << "вот эта пара под номерами" << i << " " << i - 1 << " ";
-k = true;
+flag= true;
 }
 }
-if (k == false) {
+if (flag == false) {
 cout << "Таких пар нет ";
 }
 }
