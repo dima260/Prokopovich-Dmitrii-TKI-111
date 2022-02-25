@@ -39,7 +39,7 @@ int GetSum(int* array, const size_t size);
 * \param array Массив
 * \param size Размер массива
 **/
-void multiplication_by_last_number(int* array, const size_t size);
+void MultiplicationByLastNumber(int* array, const size_t size);
 
 /**
 * \brief Метод,Найти номер последней пары соседних элементов с разными знаками.
@@ -47,7 +47,7 @@ void multiplication_by_last_number(int* array, const size_t size);
 * \param size Размер массива
 * \param input введенное число 
 **/
-void search_pair(int* array, const size_t size,int input);
+void SearchPair(int* array, const size_t size,int input);
 
 /**
 * \brief Выбор заполнеия массива
@@ -65,14 +65,21 @@ USER = 2
 **/
 int main() {
 setlocale(LC_ALL, "ru");
-srand(time(NULL));
 
 cout << "Введите количество элементов массива: ";
 
 size_t size;
-int* Array = nullptr;
+int* array = nullptr;
 cin >> size;
-
+  std::cin»a;
+while (std::cin.fail()) // если предыдущее извлечение оказалось неудачным,
+{
+std::cin.clear(); // то возвращаем cin в 'обычный' режим работы
+std::cin.ignore(32767,'\n'); // и удаляем значения предыдущего ввода из входного буфера
+std::cout«"Чел неправильные числа";
+std::cin»a
+}
+    
 
 
 cout <<static_cast<int>(Filling::RANDOM)<< "- Сгенерировать массив\n" <<static_cast<int>(Filling::USER)<<" - Заполнить массив вручную\n";
@@ -98,12 +105,12 @@ cout << "Найти сумму положительных элементов, з
 
 cout << "Умножить все четные положительные элементы на последний элемент массива.:\n";
 
-multiplication_by_last_number(Array, size);
+MultiplicationByLastNumber(Array, size);
 
 cout << "Найти номер первой пары соседних элементов с разными знаками, сумма которых меньше заданного числа.:\n";
 double input;
 cin >> input;
-search_pair(Array, size, input);
+SearchPair(Array, size, input);
 
 if (Array != nullptr)
 {
@@ -118,7 +125,7 @@ int* RandomDigits(const size_t size) {
 		random_device rd;
     mt19937 gen(rd());
 
-    uniform_int_distribution<int> uniformIntDistribution(-50, 50);
+    UniformIntDistribution<int> uniformIntDistribution(-50, 50);
     int* a = new int [size];
     for (int i = 0; i < size; i++) 
     {
@@ -154,7 +161,7 @@ sum += array[i];
 return sum;
 }
 
-void multiplication_by_last_number(int* array, const size_t size) {
+void MultiplicationByLastNumber(int* array, const size_t size) {
 for (size_t i = 0; i < size; i++) {
   if ( ( array[i] % 2 == 0 ) && ( array[i]>=0 ) ){
     array[i]=array[i]*array[size-1];
@@ -170,6 +177,7 @@ for (size_t i = 1; i < size; i++) {
 if ((array[i] * array[i - 1] < 0)&&(array[i] + array[i - 1]<input)) {
 cout << "вот эта пара под номерами" << i << " " << i - 1 << " ";
 flag= true;
+break;
 }
 }
 if (flag == false) {
